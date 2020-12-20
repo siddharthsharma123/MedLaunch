@@ -1,6 +1,11 @@
 const byte forward = 4; 
 const byte backward = 5; 
 
+
+  bool dir = true;  
+  float vel = 200;    
+  float accel = 20;
+
 //curent (A) at 1.5A
 #define DIR_PIN 11
 #define PUL_PIN 10
@@ -8,15 +13,13 @@ const byte backward = 5;
 
 void setup() {  
 
-  serial.begin(9600); 
+  Serial.begin(9600); 
   pinMode(DIR_PIN, OUTPUT);
   pinMode(PUL_PIN, OUTPUT);
   
 
   //initialize some variables
-  bool dir = true;  
-  float vel = 200;    
-  float accel = 20;
+
   //int len =  100; 
   //float wheel = 12.6;   
 
@@ -47,7 +50,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  float delayTime = 1/speed; 
+  float delayTime = 1/vel; 
   digitalWrite(PUL_PIN, HIGH);
   delay(delayTime*1000);
   digitalWrite(PUL_PIN, LOW);
@@ -57,16 +60,16 @@ void loop() {
 
 void direction(){  
   if(forward == HIGH){
-    direction = true;
+    dir = true;
     }
   else{
-    direction = false;
+    dir = false;
     }
  } 
 
-void ISR(TIMER1_COMPA_vect){  //eveytime the acceleration interupt is fired, this ISR is pursued
+ISR(TIMER1_COMPA_vect){  //eveytime the acceleration interupt is fired, this ISR is pursued
    //interrupt commands here 
-   speed += accel;
+   vel += accel;
 } 
 
 void limit(){
