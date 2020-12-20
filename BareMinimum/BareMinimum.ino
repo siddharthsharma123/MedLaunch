@@ -43,7 +43,7 @@ void setup() {
   pinMode(2, INPUT_PULLUP); 
   pinMode(3, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(2), limit, FALLING); //add a flag to prevent wierd errors
-  attachInterrupt(digitalPinToInterrupt(3), direction, FALLING);
+  attachInterrupt(digitalPinToInterrupt(3), dir2, FALLING);
   //PULSE IN PIN 10, dir in pin 11 
 
 }
@@ -58,7 +58,7 @@ void loop() {
 
 } 
 
-void direction(){  
+void dir2(){  
   if(forward == HIGH){
     dir = true;
     }
