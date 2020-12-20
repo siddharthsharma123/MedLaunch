@@ -52,9 +52,9 @@ void loop() {
   // put your main code here, to run repeatedly:
   float delayTime = 1/vel; 
   digitalWrite(PUL_PIN, HIGH);
-  delay(delayTime*1000);
+  delayMicroseconds(delayTime*1000);
   digitalWrite(PUL_PIN, LOW);
-  delay(delayTime*1000);
+  delayMicroseconds(delayTime*1000);
 
 } 
 
