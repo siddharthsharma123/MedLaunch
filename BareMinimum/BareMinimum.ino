@@ -3,7 +3,7 @@ const byte backward = 5;
 
 
   bool dir = true;  
-  float vel = 1000;    
+  float vel = 200;    
   float accel = 20;
 
 //curent (A) at 1.5A
@@ -50,11 +50,11 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  float delayTime = vel; 
+  float delayTime = 1/vel; 
   digitalWrite(PUL_PIN, HIGH);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTime*10000);
   digitalWrite(PUL_PIN, LOW);
-  delayMicroseconds(delayTime);
+  delayMicroseconds(delayTime*10000);
 
 } 
 
@@ -69,9 +69,7 @@ void dir2(){
 
 ISR(TIMER1_COMPA_vect){  //eveytime the acceleration interupt is fired, this ISR is pursued
    //interrupt commands here 
-   if(vel >1){
-   vel -= accel;
-   }
+  vel += accel;
 } 
 
 void limit(){
