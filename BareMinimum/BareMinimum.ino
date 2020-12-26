@@ -2,7 +2,7 @@
 
 
 bool dir = true;  
-float vel = 200; 
+float vel;
    
 float accel = 20;
 bool should_stop = true;  
@@ -10,13 +10,11 @@ bool mid_stop = false;
  
 bool quick_stop = true;
 
-int pulse_count = 0; 
-
-float ts = 2000; 
+float ts = 300; 
 float ss = 200; 
 float fs = 200;
 
-int pulse =0;
+unsigned long int pulse =0;
 
 
 //curent (A) at 1.5A
@@ -29,12 +27,16 @@ int pulse =0;
 #define rail_start 6 
 #define rail_end 7 
 
-void setup() {  
+void setup() {   
+  vel = fs;
 
   Serial.begin(9600); 
   pinMode(DIR_PIN, OUTPUT);
   pinMode(PUL_PIN, OUTPUT);
-
+  pinMode(rail_end, INPUT); //OUTPUT ONLY DURING TESTING  
+  pinMode(rail_start, INPUT); 
+  pinMode(forward, INPUT); 
+  pinMode(backward, INPUT);
   digitalWrite(DIR_PIN,HIGH);
 
   //initialize some variables
@@ -69,11 +71,12 @@ void setup() {
 void loop() {
   //speed control
   if(vel == ts && accel > 0){ 
-  Serial.print("Vel: "); Serial.print(vel); Serial.print("Pulse: "); Serial.println(pulse);
-  noInterrupts(); //we don't want any acceleration anymore
+  noInterrupts(); //we don't want any acceleration anymore 
+  
 } 
 else if (vel == ss && accel < 0){  
-  noInterrupts();  
+  noInterrupts();   
+
   if(quick_stop == true){ //we reach stopping speed early in the track 
     
     delay(250); //stop the motor for a bit
@@ -106,13 +109,21 @@ else if (vel == ss && accel < 0){
     }
     
 } 
-  // actual speed code
+  // actual speed code  
+ 
+  if(pulse == 0){ //begin decline to ss. This code is only intended for testing, and MUST change later
+
+    accel = -1*abs(accel); 
+    interrupts();
+   } 
+  
   float delayTime = 1/vel; 
   digitalWrite(PUL_PIN, HIGH);
   delayMicroseconds(delayTime*10000);
   digitalWrite(PUL_PIN, LOW);
   delayMicroseconds(delayTime*10000); 
-  ++pulse;
+  ++pulse; 
+  delay(50);
 } 
 
 void dir2(){  
@@ -190,7 +201,8 @@ void dir2(){
  }
 
 ISR(TIMER1_COMPA_vect){  //eveytime the acceleration interupt is fired, this ISR is pursued
-   //interrupt commands here 
+   //interrupt commands here  
+
   vel += accel;
 } 
 
