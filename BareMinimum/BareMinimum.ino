@@ -119,11 +119,12 @@ else if (vel == ss && accel < 0){
   
   float delayTime = 1/vel; 
   digitalWrite(PUL_PIN, HIGH);
-  delayMicroseconds(delayTime*10000);
+  delayMicroseconds(delayTime*10000); 
+  ++pulse;
   digitalWrite(PUL_PIN, LOW);
   delayMicroseconds(delayTime*10000); 
   ++pulse; 
-  delay(50);
+  delay(1);
 } 
 
 void dir2(){  
