@@ -12,7 +12,7 @@ bool quick_stop = true;
 
 float ts = 300; 
 float ss = 200; 
-float fs = 200;
+float fs = 20;
 
 unsigned long int pulse =0;
 
