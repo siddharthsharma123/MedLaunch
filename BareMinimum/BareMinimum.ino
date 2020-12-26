@@ -110,13 +110,13 @@ else if (vel == ss && accel < 0){
     
 } 
   // actual speed code  
- 
+ /*
   if(pulse == 0){ //begin decline to ss. This code is only intended for testing, and MUST change later
 
     accel = -1*abs(accel); 
     interrupts();
    } 
-  
+  */
   float delayTime = 1/vel; 
   digitalWrite(PUL_PIN, HIGH);
   delayMicroseconds(delayTime*10000); 
