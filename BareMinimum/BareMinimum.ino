@@ -203,8 +203,10 @@ void dir2(){
 
 ISR(TIMER1_COMPA_vect){  //eveytime the acceleration interupt is fired, this ISR is pursued
    //interrupt commands here  
-
-  vel += accel;
+  if((accel < 0 && vel > ss) || accel > 0){
+    vel += accel;
+    }
+  
 } 
 
 void limit(){
