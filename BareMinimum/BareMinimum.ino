@@ -22,10 +22,10 @@ unsigned long int pulse =0;
 #define PUL_PIN 10
 #define FWBW_INT_PIN 2 
 #define LIMIT_PIN 3 
-#define forward 13 //Change back to pin 4 for actuall code
+#define forward 13 //Change back to pin 4 for actual code
 #define backward 5
-#define rail_start 6 
-#define rail_end 7 
+#define FRONT_LIMIT 6 
+#define BACK_LIMIT 7 
 #define testPinButton 4
 
 void setup() {   
@@ -34,8 +34,8 @@ void setup() {
   Serial.begin(9600); 
   pinMode(DIR_PIN, OUTPUT);
   pinMode(PUL_PIN, OUTPUT);
-  pinMode(rail_end, INPUT); //OUTPUT ONLY DURING TESTING  
-  pinMode(rail_start, INPUT); 
+  pinMode(BACK_LIMIT, INPUT); //OUTPUT ONLY DURING TESTING  
+  pinMode(FRONT_LIMIT, INPUT); 
   pinMode(forward, INPUT); 
   pinMode(backward, INPUT);
   digitalWrite(DIR_PIN,HIGH);
@@ -77,7 +77,7 @@ void loop() {
 } 
 else if (vel == ss && accel < 0){  
   noInterrupts();   
-
+  
   if(quick_stop == true){ //we reach stopping speed early in the track 
     
     delay(250); //stop the motor for a bit
@@ -134,7 +134,7 @@ void dir2(){
   
   if(digitalRead(forward) == HIGH){  //when forward button is pressed
     
-    if(digitalRead(rail_end) == HIGH){ //we are at 100 % and are need to start moving in the other direction 
+    if(digitalRead(BACK_LIMIT) == HIGH){ //we are at 100 % and are need to start moving in the other direction 
      vel = fs; //vel is equal to max speed without any acceleration 
      accel = abs(accel); //make sure the acceleration is positive, so that we can increase speed
      digitalWrite(DIR_PIN,HIGH); //switch direction to forward 
@@ -167,7 +167,7 @@ void dir2(){
     } 
   else if (digitalRead(backward) == HIGH){ 
     
-     if(digitalRead(rail_start) == HIGH){ //we are at 0%
+     if(digitalRead(FRONT_LIMIT) == HIGH){ //we are at 0%
       vel = fs; 
       accel = abs(accel); 
       digitalWrite(DIR_PIN,LOW); 
