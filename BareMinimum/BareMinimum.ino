@@ -61,10 +61,9 @@ void setup() {
   TIMSK1 |= (1 << OCIE1A); 
 
   //SETTING LIMIT SWITCHES AND FW/BW INTERRUPT PIN  
-  pinMode(FWBW_INT_PIN, INPUT_PULLUP); 
-  pinMode(LIMIT_PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(LIMIT_PIN), limit, FALLING); //add a flag to prevent wierd errors
-  attachInterrupt(digitalPinToInterrupt(FWBW_INT_PIN), dir2, FALLING);
+
+  attachInterrupt(digitalPinToInterrupt(LIMIT_PIN), limit, RISING); //add a flag to prevent wierd errors
+  attachInterrupt(digitalPinToInterrupt(FWBW_INT_PIN), dir2, RISING);
   //PULSE IN PIN 10, dir in pin 11 
 
 }
