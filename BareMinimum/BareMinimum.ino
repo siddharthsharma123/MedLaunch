@@ -11,7 +11,7 @@ bool mid_stop = false;
 bool quick_stop = true;
 
 float ts = 200; 
-float ss = 20; 
+float ss = 100; 
 float fs = 20;
 
 unsigned long int pulse =0;
@@ -74,7 +74,7 @@ void loop() {
   noInterrupts(); //we don't want any acceleration anymore 
   
 } 
-else if (vel <= ss && accel < 0){  
+else if (vel == ss && accel < 0){  
   noInterrupts();   
   
   if(quick_stop == true){ //we reach stopping speed early in the track 
