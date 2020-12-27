@@ -10,9 +10,9 @@ bool mid_stop = false;
  
 bool quick_stop = true;
 
-float ts = 200; 
-float ss = 100; 
-float fs = 20;
+float ts = 200; //target
+float ss = 100; //stopping
+float fs = 20; //starting 
 
 unsigned long int pulse =0;
 
@@ -134,7 +134,7 @@ void dir2(){
   if(digitalRead(forward) == HIGH){  //when forward button is pressed
     
     if(digitalRead(BACK_LIMIT) == HIGH){ //we are at 100 % and are need to start moving in the other direction 
-     vel = fs; //vel is equal to max speed without any acceleration 
+     vel = fs; //vel is equal to appropiate starting speed
      accel = abs(accel); //make sure the acceleration is positive, so that we can increase speed
      digitalWrite(DIR_PIN,HIGH); //switch direction to forward 
      dir = true; 
