@@ -1,4 +1,4 @@
-
+////////////////////////////////////////////////////THIS CODE IS TEST CODE///////////////////////////////////////////////////////////
 
 
 bool dir = true;  
@@ -10,22 +10,23 @@ bool mid_stop = false;
  
 bool quick_stop = true;
 
-float ts = 300; 
-float ss = 200; 
+float ts = 200; 
+float ss = 20; 
 float fs = 20;
 
 unsigned long int pulse =0;
 
 
-//curent (A) at 1.5A
+//curent (A) at 1.5A 
 #define DIR_PIN 11
 #define PUL_PIN 10
 #define FWBW_INT_PIN 2 
 #define LIMIT_PIN 3 
-#define forward 4 
+#define forward 13 //Change back to pin 4 for actuall code
 #define backward 5
 #define rail_start 6 
 #define rail_end 7 
+#define testPinButton 4
 
 void setup() {   
   vel = fs;
@@ -110,13 +111,13 @@ else if (vel == ss && accel < 0){
     
 } 
   // actual speed code  
- /*
-  if(pulse == 0){ //begin decline to ss. This code is only intended for testing, and MUST change later
+ 
+  if(digitalRead(testPinButton) == HIGH){ //begin decline to ss. This code is only intended for testing, and MUST change later
 
     accel = -1*abs(accel); 
     interrupts();
    } 
-  */
+  
   float delayTime = 1/vel; 
   digitalWrite(PUL_PIN, HIGH);
   delayMicroseconds(delayTime*10000); 
