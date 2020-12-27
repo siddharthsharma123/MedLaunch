@@ -74,7 +74,7 @@ void loop() {
   noInterrupts(); //we don't want any acceleration anymore 
   
 } 
-else if (vel == ss && accel < 0){  
+else if (vel <= ss && accel < 0){  
   noInterrupts();   
   
   if(quick_stop == true){ //we reach stopping speed early in the track 
